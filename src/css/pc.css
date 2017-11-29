@@ -1,3 +1,6 @@
+body {
+	position: relative;
+}
 .logo {
 	align-items: center;
 	display: flex;
@@ -9,4 +12,82 @@
 .logo span {
 	font-size: 24px;
 	margin-left: 5px;
+}
+/*.footerWrapper {
+	position: absolute!important;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+	line-height: 50px;
+	margin-top: 50px;
+}*/
+.footer {
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+}
+.register {
+	float: right!important;
+}
+.register a {
+	display: inline-block!important;
+}
+.leftContainer {
+	float: left;
+	width: 400px;
+}
+.container {
+	padding-top: 10px;
+}
+.rightContainer {
+	position: absolute;
+	left: 410px;
+	right: 0;
+
+}
+
+.r_leftContent {
+	float: left;
+	flex: 0 0 auto;
+	width: 49%;
+	margin-right: 2%;
+	
+}
+.r_rightContent {
+	float: right;
+	flex: 0 0 auto;
+	width: 49%;
+
+}
+.listCard {
+	margin: -14px 2px 10px!important;
+}
+.listCard .ant-card-body,
+.cardPadding .ant-card-body {
+	padding: 15px!important;
+}
+.imgListWrapper {
+	float: left;
+	margin-top: 5px;
+	padding: 0 6px;
+}
+.newsList li {
+	font-size: 13px;
+	padding: 4px 0!important;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.newList li a {
+	color: #888!important;
+}
+.articleContent,
+.articleContent p,
+.article-src-time {
+	padding: 15px;
+}
+.friend-links-content .item {
+	float: left;
+	margin: 0 20px 20px 0;
 }

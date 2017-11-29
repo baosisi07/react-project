@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Router, Route, Link, browserHistory } from 'react-router-dom';
 import { Row, Col } from 'antd';
 import { Menu, Icon, Tabs, Modal, Dropdown, message, Form, Input, Button, CheckBox } from 'antd';
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
-// const SubMenu = Menu.SubMenu;
-// const MenuItemGroup = Menu.ItemGroup;
-class PCHeader extends Component {
+class MobileHeader extends Component {
     constructor() {
         super();
         this.state = {
@@ -16,7 +14,7 @@ class PCHeader extends Component {
             hasLogined: false,
             userNickName: "",
             userId: 0,
-            icon: "/images/news.png"
+            icon: "./images/news.png"
         };
     }
     componentWillMount() {
@@ -35,7 +33,7 @@ class PCHeader extends Component {
         };
         var formData = this.props.form.getFieldsValue();
         console.log(formData);
-        fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=' + this.state.action + '&username=' + formData.username + '&password=' + formData.password + '&r_userName=' + formData.b_username + '&r_password=' + formData.b_password + '&r_confirmPassword=' + formData.b_cpassword, myFetchOptions).then(response => response.json()
+        fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=' + this.state.action + '&username=' + formData.username + '&password=' + formData.password + '&r_userName=' + formData.b_username + '&r_password=' + formData.b_password + '&r_confirmPassword=' + formData.b_cpassword).then(response => response.json()
         ).then(json => {
             this.setState({
                 userNickName: json.NickUserName,
@@ -48,7 +46,6 @@ class PCHeader extends Component {
             this.setState({
                 hasLogined: true
             });
-
             message.success("登录成功！");
         } else {
             message.success("注册成功！");
@@ -70,6 +67,11 @@ class PCHeader extends Component {
                 modalVisible: true
             });
         }
+    }
+    login() {
+        this.setState({
+            modalVisible: true
+        })
     }
     callback(key) {
         if (key == 1) {
@@ -94,9 +96,7 @@ class PCHeader extends Component {
         const dorpmenu = (
         <Menu>
             <Menu.Item>
-            <Router>
-              <Link to={`/usercenter`} target="_blank" rel="noopener noreferrer">个人中心</Link>
-            </Router>
+              <a target="_blank" rel="noopener noreferrer">个人中心</a>
             </Menu.Item>
             <Menu.Item>
               <a target="_blank" rel="noopener noreferrer" onClick={this.logout.bind(this)}>退出</a>
@@ -104,54 +104,20 @@ class PCHeader extends Component {
             
           </Menu>
         );
-        const userShow = this.state.hasLogined ? (<Menu.Item key="logout" className="register"> 
-             <Dropdown overlay={dorpmenu}>
+        const userShow = this.state.hasLogined ?
+            <Dropdown overlay={dorpmenu}>
             <a className="ant-dropdown-link">
-            <Icon type="user" />{this.state.userNickName}<Icon type="down" />   
+            {this.state.userNickName}<Icon type="down" />   
             </a>
             </Dropdown>
-        </Menu.Item>)
             :
-            (<Menu.Item key="register" className="register"><Icon type="key" />登录/注册</Menu.Item>);
+            <a target="_blank" onClick={this.login.bind(this)}><Icon type="key" /></a>;
         return (
             <header>
-                <Row>
-                  <Col span={2}></Col>
-                  <Col span={4}>
-                  <a href="" className="logo">
-                  <img src={this.state.icon} alt="logo" />
-                  <span>react新闻平台</span>
-                  </a>  
-                </Col>
-                <Col span={16}>
-                    <Menu mode="horizontal" onClick={this.setCurrent.bind(this)}  selectedKeys={this.state.currentItem}>
-                        <Menu.Item key="news">
-                          <Icon type="mail" />头条
-                        </Menu.Item>
-                        <Menu.Item key="home">
-                          <Icon type="home" />国内
-                        </Menu.Item>
-                        <Menu.Item key="international">
-                          <Icon type="mail" />国际
-                        </Menu.Item>
-                        <Menu.Item key="entertainment">
-                          <Icon type="mail" />娱乐
-                        </Menu.Item>
-                        <Menu.Item key="fashion">
-                          <Icon type="mail" />时尚
-                        </Menu.Item>
-                        <Menu.Item key="sport">
-                          <Icon type="mail" />体育
-                        </Menu.Item>
-                        <Menu.Item key="society">
-                          <Icon type="mail" />社会
-                        </Menu.Item>
-                        <Menu.Item key="technology">
-                          <Icon type="mail" />科技
-                        </Menu.Item>
-                        {userShow}
-                    </Menu>
-                    <Modal title="用戶中心"visible={this.state.modalVisible} wrapClassName="center-modal" onOk={this.setModalVisible.bind(this)} onCancel={this.setModalVisible.bind(this)} okText="确定" cancelText="取消"> 
+            <img className="logoImg" src={this.state.icon}  alt=""/>
+            <span className="apptitle">react新闻平台</span>
+            {userShow}
+            <Modal title="用戶中心"visible={this.state.modalVisible} wrapClassName="center-modal" onOk={this.setModalVisible.bind(this)} onCancel={this.setModalVisible.bind(this)} okText="确定" cancelText="取消"> 
                       <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
                         <TabPane tab="登录" key="1">
                              <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}> 
@@ -202,11 +168,8 @@ class PCHeader extends Component {
                         
                       </Tabs>   
                     </Modal>
-                </Col>
-                     <Col span={2}></Col>
-                </Row>
             </header>
         );
     }
 }
-export default PCHeader = Form.create()(PCHeader);
+export default MobileHeader = Form.create()(MobileHeader);

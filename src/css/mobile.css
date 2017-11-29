@@ -1,0 +1,81 @@
+
+#mobile {
+	flex: 1;
+	
+}
+#mobile header {
+	border-bottom: 1px solid #2db7f5;
+	padding:0 10px;
+	background-color: #f6f6f6;
+}
+#mobile .logoImg {
+	height: 50px;
+}
+#mobile .apptitle {
+	font-size: 24px;
+	line-height: 50px;
+	vertical-align: top;
+	padding-left: 10px;
+	color: #2db7f5;
+}
+#mobile header a,
+#mobile header i {
+	float: right;
+	font-size: 18px;
+	line-height: 50px;
+	vertical-align: top;
+	padding-left: 10px;
+	color: #2db7f5;
+}
+#mobile .ant-carousel {
+	margin-bottom: 10px;
+}
+.personal i {
+	float: left!important;
+}
+.newsListItem {
+	padding: 8px 0;
+	border-bottom: 1px solid #EFF2F5;
+}
+.newsListImg {
+	float: left;
+	width: 38%;
+	margin-right: 2%;
+}
+.newsListImg img {
+	width: 100%;
+}
+.newsListInfo {
+	float: right;
+	width: 60%;
+	overflow: hidden;
+}
+.newsListTitle {
+	font-size: 14px;
+	color:#404040;
+	height: 45px;
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	display:-webkit-box; 
+	-webkit-box-orient:vertical;
+	-webkit-line-clamp:2;
+
+}
+.newsListDesc {
+	margin-top: 20px;
+}
+.newsListDesc span {
+ font-size: 12px;
+ display: inline-block;
+}
+.newsSource {
+	color: rgba(255,51,51,0.9);
+	padding: 0 2px;
+	border-radius: 2px;
+	line-height: 1.3;
+	border: solid 1px rgba(255,51,51,0.9);
+}
+.newsTime {
+	margin-left: 5px;
+	color: grey;
+}
