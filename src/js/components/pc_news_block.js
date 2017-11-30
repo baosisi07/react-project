@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Tabs, Card } from 'antd';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const TabPane = Tabs.TabPane;
 
 class PCNewsBlock extends Component {
@@ -28,18 +28,16 @@ class PCNewsBlock extends Component {
                 <li key={index}>
                     <Link to={`details/${newsItem.uniquekey}`} target="_blank">
                     {newsItem.title}
-                </Link>
-              
-                
+                </Link> 
             </li>
             ))
             : "没有相关新闻";
         return (
-            <Router>
+            <div>
                 <Card bordered={false} className="listCard">
                     <ul className="newsList">{newsList}</ul>
                 </Card>
-            </Router>
+            </div>
         )
     }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Tabs, Card } from 'antd';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const TabPane = Tabs.TabPane;
 
 class PCNewsImagesBlock extends Component {
@@ -54,14 +54,14 @@ class PCNewsImagesBlock extends Component {
             ))
             : "没有相关新闻";
         return (
-            <Router>
+            <div>
                 <Card bordered={true} title={this.props.title} className="cardPadding" style={{
                 width: this.props.width,
                 marginTop: '10px'
             }}>
-                  {newsList}  
+                {newsList}   
                 </Card>
-            </Router>
+            </div>
         )
     }
 }

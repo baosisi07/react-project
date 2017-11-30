@@ -7,19 +7,18 @@ import registerServiceWorker from './registerServiceWorker';
 import MediaQuery from "react-responsive";
 import './css/pc.css';
 import "./css/mobile.css";
-import { Route, BrowserRouter as Router, Link, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Link, Switch } from 'react-router-dom';
 class Index extends Component {
     render() {
         return (
             <div className = "App" >
         	<MediaQuery query='(min-device-width:1224px)'>
-        		<Router>
+        		<BrowserRouter>
         			<Switch>
         				<Route exact path='/' component={PCIndex}></Route>
         				<Route path='/details/:uniquekey' component={PCNewsDetails}></Route>
         			</Switch>
-        		</Router>
-        		<PCIndex></PCIndex>	
+        		</BrowserRouter>
         	</MediaQuery>
             <MediaQuery query='(max-device-width:1224px)'>
         		<MobileIndex></MobileIndex>	

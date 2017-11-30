@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Row, Col, BackTop } from 'antd';
-import { Route, BrowserRouter as Router, Link } from 'react-router-dom';
 import PCHeader from "./pc_header";
 import PCFooter from "./pc_footer";
 import PCNewsImagesBlock from './pc_news_imagesBlock';
@@ -16,6 +15,7 @@ class PCNewsDetails extends Component {
         var myFetchOptions = {
             method: 'GET'
         };
+        console.log(this.props.match.params);
         fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=' + this.props.match.params.uniquekey, myFetchOptions)
             .then(reponse => reponse.json())
             .then(json => {
