@@ -79,3 +79,6 @@
 	margin-left: 5px;
 	color: grey;
 }
+#mobile .ant-back-top {
+	right: 20px!important;
+}

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router-dom';
-import { Row, Col } from 'antd';
-import { Menu, Icon, Tabs, Modal, Dropdown, message, Form, Input, Button, CheckBox } from 'antd';
+import { Menu, Icon, Tabs, Modal, Dropdown, message, Form, Input, Button } from 'antd';
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
 class MobileHeader extends Component {
@@ -14,11 +12,11 @@ class MobileHeader extends Component {
             hasLogined: false,
             userNickName: "",
             userId: 0,
-            icon: "./images/news.png"
+            icon: "/images/news.png"
         };
     }
     componentWillMount() {
-        if (localStorage.userId != "") {
+        if (localStorage.userId != "" && localStorage.userId != undefined) {
             this.setState({
                 hasLogined: true,
                 userNickName: localStorage.userNickName,

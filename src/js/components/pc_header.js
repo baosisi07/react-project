@@ -20,7 +20,8 @@ class PCHeader extends Component {
         };
     }
     componentWillMount() {
-        if (localStorage.userId != "") {
+
+        if (localStorage.userId != "" && localStorage.userId != undefined) {
             this.setState({
                 hasLogined: true,
                 userNickName: localStorage.userNickName,
@@ -28,13 +29,15 @@ class PCHeader extends Component {
             });
         }
     }
+    componentDidMount() {
+        console.log(localStorage.userId);
+    }
     handleSubmit(e) {
         e.preventDefault();
         var myFetchOptions = {
             method: 'GET'
         };
         var formData = this.props.form.getFieldsValue();
-        console.log(formData);
         fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=' + this.state.action + '&username=' + formData.username + '&password=' + formData.password + '&r_userName=' + formData.b_username + '&r_password=' + formData.b_password + '&r_confirmPassword=' + formData.b_cpassword, myFetchOptions).then(response => response.json()
         ).then(json => {
             this.setState({

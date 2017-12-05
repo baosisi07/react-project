@@ -40,7 +40,7 @@ class PCNewsImagesBlock extends Component {
                 <div key={index} className='imgListWrapper' style={{
                     width: this.props.imgWidth
                 }}>
-                 <Link to={`details/${newsItem.uniquekey}`} target="_blank">
+                 <Link to={`/details/${newsItem.uniquekey}`} target="_blank">
                     <div className='customImg'>
                         <img alt='' style={styleImg} src={newsItem.thumbnail_pic_s}/>
                     </div>

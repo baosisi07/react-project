@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Col, Tabs } from 'antd';
-import { Router, Route, Link, browserHistory } from 'react-router-dom';
-const TabPane = Tabs.TabPane;
+import { Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
 
 class MobileList extends Component {
     constructor() {
@@ -26,7 +25,7 @@ class MobileList extends Component {
         const newsList = news.length ?
             news.map((newsItem, index) => (
                 <section key={index} className='newsListItem'>
-                <a href="" className='ant-row'>
+                <Link to={`/details/${newsItem.uniquekey}`} href="_target" className='ant-row'>
                     <div className='newsListImg'>
                         <img src={newsItem.thumbnail_pic_s} alt={newsItem.title}/>
                     </div>
@@ -37,7 +36,7 @@ class MobileList extends Component {
                             <span className='newsTime'>{newsItem.date}</span>
                         </div>
                     </div>
-                </a>
+                </Link>
               </section>
             ))
             : "没有相关新闻";
