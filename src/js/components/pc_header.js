@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Row, Col } from 'antd';
 import { Menu, Icon, Tabs, Modal, Dropdown, message, Form, Input, Button, CheckBox } from 'antd';
 const FormItem = Form.Item;
@@ -32,31 +32,45 @@ class PCHeader extends Component {
     componentDidMount() {
         console.log(localStorage.userId);
     }
+
     handleSubmit(e) {
         e.preventDefault();
-        var myFetchOptions = {
-            method: 'GET'
-        };
-        var formData = this.props.form.getFieldsValue();
-        fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=' + this.state.action + '&username=' + formData.username + '&password=' + formData.password + '&r_userName=' + formData.b_username + '&r_password=' + formData.b_password + '&r_confirmPassword=' + formData.b_cpassword, myFetchOptions).then(response => response.json()
-        ).then(json => {
-            this.setState({
-                userNickName: json.NickUserName,
-                userId: json.UserId
-            });
-            localStorage.userNickName = this.state.userNickName;
-            localStorage.userId = this.state.userId;
-        });
+        let validItem = [];
         if (this.state.action == "login") {
-            this.setState({
-                hasLogined: true
-            });
+            validItem = ['username', 'password'];
 
-            message.success("登录成功！");
         } else {
-            message.success("注册成功！");
+            validItem = ['b_username', 'b_password', 'b_cpassword'];
+
         }
-        this.setModalVisible();
+        this.props.form.validateFields(validItem, (err, values) => {
+            if (!err) {
+                var myFetchOptions = {
+                    method: 'GET'
+                };
+                var formData = this.props.form.getFieldsValue();
+                fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=' + this.state.action + '&username=' + formData.username + '&password=' + formData.password + '&r_userName=' + formData.b_username + '&r_password=' + formData.b_password + '&r_confirmPassword=' + formData.b_cpassword, myFetchOptions).then(response => response.json()
+                ).then(json => {
+                    this.setState({
+                        userNickName: json.NickUserName,
+                        userId: json.UserId
+                    });
+                    localStorage.userNickName = this.state.userNickName;
+                    localStorage.userId = this.state.userId;
+                });
+                if (this.state.action == "login") {
+                    this.setState({
+                        hasLogined: true
+                    });
+
+                    message.success("登录成功！");
+                } else {
+                    message.success("注册成功！");
+                }
+                this.setModalVisible();
+            }
+        });
+
 
     }
     setModalVisible() {
@@ -74,7 +88,7 @@ class PCHeader extends Component {
             });
         }
     }
-    callback(key) {
+    callbackLogin(key) {
         if (key == 1) {
             this.setState({
                 action: "login"
@@ -97,9 +111,7 @@ class PCHeader extends Component {
         const dorpmenu = (
         <Menu>
             <Menu.Item>
-            <Router>
-              <Link to={`/usercenter`} target="_blank" rel="noopener noreferrer">个人中心</Link>
-            </Router>
+              <Link to={`/usercenter`} rel="noopener noreferrer">个人中心</Link>
             </Menu.Item>
             <Menu.Item>
               <a target="_blank" rel="noopener noreferrer" onClick={this.logout.bind(this)}>退出</a>
@@ -121,10 +133,10 @@ class PCHeader extends Component {
                 <Row>
                   <Col span={2}></Col>
                   <Col span={4}>
-                  <a href="" className="logo">
+                  <Link to={`/`} className="logo">
                   <img src={this.state.icon} alt="logo" />
                   <span>react新闻平台</span>
-                  </a>  
+                  </Link>  
                 </Col>
                 <Col span={16}>
                     <Menu mode="horizontal" onClick={this.setCurrent.bind(this)}  selectedKeys={this.state.currentItem}>
@@ -154,49 +166,76 @@ class PCHeader extends Component {
                         </Menu.Item>
                         {userShow}
                     </Menu>
-                    <Modal title="用戶中心"visible={this.state.modalVisible} wrapClassName="center-modal" onOk={this.setModalVisible.bind(this)} onCancel={this.setModalVisible.bind(this)} okText="确定" cancelText="取消"> 
-                      <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
-                        <TabPane tab="登录" key="1">
-                             <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}> 
-                                <FormItem>
-                                {getFieldDecorator("username")(<Input prefix={<Icon type="user" style={{
+                    <Modal title="用戶中心"visible={this.state.modalVisible} wrapClassName="center-modal" onOk={this.setModalVisible.bind(this)} onCancel={this.setModalVisible.bind(this)} footer={null}> 
+                      <Tabs defaultActiveKey="1" onChange={this.callbackLogin.bind(this)}>
+                                                <TabPane tab="登录" key="1">
+                                                     <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}> 
+                                                        <FormItem>
+                                                        {getFieldDecorator("username", {
+                rules: [{
+                    required: true,
+                    message: '请输入用户名',
+                }],
+            })(<Input prefix={<Icon type="user" style={{
                 fontSize: 14
             }} />} placeholder="账号"/>)}
-                                    
-                                </FormItem>
-                                <FormItem>
-                                {getFieldDecorator("password")(<Input prefix={<Icon type="lock" style={{
+                                                            
+                                                        </FormItem>
+                                                        <FormItem>
+                                                        {getFieldDecorator("password", {
+                rules: [{
+                    required: true,
+                    message: '请输入密码',
+                }],
+            })(<Input prefix={<Icon type="lock" style={{
                 fontSize: 14
             }} />} type="password" placeholder="密码"/>)}
-                                    
-                                </FormItem>
-                                <Button type="primary" htmlType="submit" className="login-form-button">
-                                登录
-                              </Button>
-                            </Form>
-                        </TabPane>
+                                                            
+                                                        </FormItem>
+                                                        <FormItem>
+                                                        <Button type="primary" htmlType="submit" className="bigBtn login-form-button">
+                                                        登录
+                                                      </Button>
+                                                      </FormItem>
+                                                    </Form>
+                                                </TabPane>
                         <TabPane tab="注册" key="2">
                             <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}> 
                                 <FormItem>
-                                {getFieldDecorator("b_username")(<Input prefix={<Icon type="user" style={{
+                                {getFieldDecorator("b_username", {
+                rules: [{
+                    required: true,
+                    message: '请输入用户名',
+                }],
+            })(<Input prefix={<Icon type="user" style={{
                 fontSize: 14
             }} />} placeholder="账号"/>)}
                                     
                                 </FormItem>
                                 <FormItem>
-                                {getFieldDecorator("b_password")(<Input prefix={<Icon type="lock" style={{
+                                {getFieldDecorator("b_password", {
+                rules: [{
+                    required: true,
+                    message: '请输入密码',
+                }],
+            })(<Input prefix={<Icon type="lock" style={{
                 fontSize: 14
             }} />} type="password" placeholder="密码"/>)}
                                     
                                 </FormItem>
                                 <FormItem>
-                                {getFieldDecorator("b_cpassword")(<Input prefix={<Icon type="lock" style={{
+                                {getFieldDecorator("b_cpassword", {
+                rules: [{
+                    required: true,
+                    message: '请输入确认密码',
+                }],
+            })(<Input prefix={<Icon type="lock" style={{
                 fontSize: 14
             }} />} type="password" placeholder="确认密码"/>)}
                                     
                                 </FormItem>
                                 <FormItem>
-                                <Button type="primary" htmlType="submit">
+                                <Button type="primary" htmlType="submit" className="bigBtn login-form-button">
                                 注册
                               </Button>
                               </FormItem>

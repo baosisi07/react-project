@@ -91,3 +91,35 @@ body {
 	float: left;
 	margin: 0 20px 20px 0;
 }
+.bigBtn {
+	width: 100%;
+}
+.commentBox {
+	border: solid 1px #eee;
+	padding: 10px;
+}
+.commentItem {
+	border-bottom: solid 1px #eee; 
+}
+.commentItem h3 {
+	font-size: 13px;
+	color: #999;
+	margin: 10px;
+}
+.commentBox .commentName {
+	color: #108ee9;
+	margin: 0 10px;
+}
+.commentBox .commentTime {
+	float: right;
+}
+.commentBox p {
+	padding: 10px;
+	font-size: 14px;
+}
+.commentForm button {
+	margin-left: 20px;
+}
+.userCenter {
+	margin: 20px 0;
+}

@@ -18,7 +18,7 @@
 	padding-left: 10px;
 	color: #2db7f5;
 }
-#mobile header a,
+#mobile header .ant-dropdown-link,
 #mobile header i {
 	float: right;
 	font-size: 18px;
@@ -81,4 +81,33 @@
 }
 #mobile .ant-back-top {
 	right: 20px!important;
+}
+.bigBtn {
+	width: 100%;
+}
+.commentBox {
+	border: solid 1px #eee;
+	padding: 10px;
+}
+.commentItem {
+	border-bottom: solid 1px #eee; 
+}
+.commentItem h3 {
+	font-size: 13px;
+	color: #999;
+	margin: 10px;
+}
+.commentBox .commentName {
+	color: #108ee9;
+	margin: 0 10px;
+}
+.commentBox .commentTime {
+	float: right;
+}
+.commentBox p {
+	padding: 10px;
+	font-size: 14px;
+}
+.commentForm button {
+	margin-left: 20px;
 }

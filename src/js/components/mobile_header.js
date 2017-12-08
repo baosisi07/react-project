@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, Icon, Tabs, Modal, Dropdown, message, Form, Input, Button } from 'antd';
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
@@ -26,29 +27,40 @@ class MobileHeader extends Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        var myFetchOptions = {
-            method: 'GET'
-        };
-        var formData = this.props.form.getFieldsValue();
-        console.log(formData);
-        fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=' + this.state.action + '&username=' + formData.username + '&password=' + formData.password + '&r_userName=' + formData.b_username + '&r_password=' + formData.b_password + '&r_confirmPassword=' + formData.b_cpassword).then(response => response.json()
-        ).then(json => {
-            this.setState({
-                userNickName: json.NickUserName,
-                userId: json.UserId
-            });
-            localStorage.userNickName = this.state.userNickName;
-            localStorage.userId = this.state.userId;
-        });
+        let validItem = [];
         if (this.state.action == "login") {
-            this.setState({
-                hasLogined: true
-            });
-            message.success("登录成功！");
+            validItem = ['username', 'password'];
+
         } else {
-            message.success("注册成功！");
+            validItem = ['b_username', 'b_password', 'b_cpassword'];
+
         }
-        this.setModalVisible();
+        this.props.form.validateFields(validItem, (err, values) => {
+            if (!err) {
+                var myFetchOptions = {
+                    method: 'GET'
+                };
+                var formData = this.props.form.getFieldsValue();
+                fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=' + this.state.action + '&username=' + formData.username + '&password=' + formData.password + '&r_userName=' + formData.b_username + '&r_password=' + formData.b_password + '&r_confirmPassword=' + formData.b_cpassword).then(response => response.json()
+                ).then(json => {
+                    this.setState({
+                        userNickName: json.NickUserName,
+                        userId: json.UserId
+                    });
+                    localStorage.userNickName = this.state.userNickName;
+                    localStorage.userId = this.state.userId;
+                });
+                if (this.state.action == "login") {
+                    this.setState({
+                        hasLogined: true
+                    });
+                    message.success("登录成功！");
+                } else {
+                    message.success("注册成功！");
+                }
+                this.setModalVisible();
+            }
+        });
 
     }
     setModalVisible() {
@@ -94,7 +106,7 @@ class MobileHeader extends Component {
         const dorpmenu = (
         <Menu>
             <Menu.Item>
-              <a target="_blank" rel="noopener noreferrer">个人中心</a>
+              <Link to={`/usercenter`} rel="noopener noreferrer">个人中心</Link>
             </Menu.Item>
             <Menu.Item>
               <a target="_blank" rel="noopener noreferrer" onClick={this.logout.bind(this)}>退出</a>
@@ -112,52 +124,80 @@ class MobileHeader extends Component {
             <a target="_blank" onClick={this.login.bind(this)}><Icon type="key" /></a>;
         return (
             <header>
-            <img className="logoImg" src={this.state.icon}  alt=""/>
-            <span className="apptitle">react新闻平台</span>
+            <Link to={`/`}><img className="logoImg" src={this.state.icon}  alt=""/>
+            <span className="apptitle">react新闻平台</span></Link>
+            
             {userShow}
-            <Modal title="用戶中心"visible={this.state.modalVisible} wrapClassName="center-modal" onOk={this.setModalVisible.bind(this)} onCancel={this.setModalVisible.bind(this)} okText="确定" cancelText="取消"> 
+            <Modal title="用戶中心"visible={this.state.modalVisible} wrapClassName="center-modal" onOk={this.setModalVisible.bind(this)} onCancel={this.setModalVisible.bind(this)} footer={null}> 
                       <Tabs defaultActiveKey="1" onChange={this.callback.bind(this)}>
                         <TabPane tab="登录" key="1">
                              <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}> 
                                 <FormItem>
-                                {getFieldDecorator("username")(<Input prefix={<Icon type="user" style={{
+                                {getFieldDecorator("username", {
+                rules: [{
+                    required: true,
+                    message: '请输入用户名',
+                }],
+            })(<Input prefix={<Icon type="user" style={{
                 fontSize: 14
             }} />} placeholder="账号"/>)}
                                     
                                 </FormItem>
                                 <FormItem>
-                                {getFieldDecorator("password")(<Input prefix={<Icon type="lock" style={{
+                                {getFieldDecorator("password", {
+                rules: [{
+                    required: true,
+                    message: '请输入密码',
+                }],
+            })(<Input prefix={<Icon type="lock" style={{
                 fontSize: 14
             }} />} type="password" placeholder="密码"/>)}
                                     
                                 </FormItem>
-                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                <FormItem>
+                                <Button type="primary" htmlType="submit" className="bigBtn login-form-button">
                                 登录
                               </Button>
+                              </FormItem>
                             </Form>
                         </TabPane>
                         <TabPane tab="注册" key="2">
                             <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}> 
                                 <FormItem>
-                                {getFieldDecorator("b_username")(<Input prefix={<Icon type="user" style={{
+                                {getFieldDecorator("b_username", {
+                rules: [{
+                    required: true,
+                    message: '请输入用户名',
+                }],
+            })(<Input prefix={<Icon type="user" style={{
                 fontSize: 14
             }} />} placeholder="账号"/>)}
                                     
                                 </FormItem>
                                 <FormItem>
-                                {getFieldDecorator("b_password")(<Input prefix={<Icon type="lock" style={{
+                                {getFieldDecorator("b_password", {
+                rules: [{
+                    required: true,
+                    message: '请输入密码',
+                }],
+            })(<Input prefix={<Icon type="lock" style={{
                 fontSize: 14
             }} />} type="password" placeholder="密码"/>)}
                                     
                                 </FormItem>
                                 <FormItem>
-                                {getFieldDecorator("b_cpassword")(<Input prefix={<Icon type="lock" style={{
+                                {getFieldDecorator("b_cpassword", {
+                rules: [{
+                    required: true,
+                    message: '请输入确认密码',
+                }],
+            })(<Input prefix={<Icon type="lock" style={{
                 fontSize: 14
             }} />} type="password" placeholder="确认密码"/>)}
                                     
                                 </FormItem>
                                 <FormItem>
-                                <Button type="primary" htmlType="submit">
+                                <Button type="primary" className="bigBtn login-form-button" htmlType="submit">
                                 注册
                               </Button>
                               </FormItem>
