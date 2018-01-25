@@ -2,7 +2,7 @@
   "name": "react-project",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "//baosisi07.github.io/react-project",
+  "repository" : "baosisi07/react-project",
   "dependencies": {
     "antd": "^2.13.10",
     "babel-plugin-import": "^1.6.2",
