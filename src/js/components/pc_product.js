@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Tabs, Card } from 'antd';
+import { Card } from 'antd';
 class PCProducts extends Component {
     render() {
         return (
@@ -38,8 +38,8 @@ class PCProducts extends Component {
       <li className="item"><a target="_blank" href="http://www.enorth.com.cn/">北方网</a></li><li className="item"><a target="_blank" href="http://www.hnt.gov.cn/">湖南省旅发委官网</a></li>
       <li className="item"><a target="_blank" href="http://www.leju.com/">乐居网</a></li></ul></div>
 
-			</Card>	
-			</div>
+      </Card> 
+      </div>
         )
     }
 }

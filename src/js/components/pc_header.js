@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'antd';
 import { Menu, Icon, Tabs, Modal, Dropdown, message, Form, Input, Button, CheckBox } from 'antd';
+import logo from '../../images/news.png';
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
 // const SubMenu = Menu.SubMenu;
@@ -15,8 +16,7 @@ class PCHeader extends Component {
             action: "login",
             hasLogined: false,
             userNickName: "",
-            userId: 0,
-            icon: "/images/news.png"
+            userId: 0
         };
     }
     componentWillMount() {
@@ -134,7 +134,7 @@ class PCHeader extends Component {
                   <Col span={2}></Col>
                   <Col span={4}>
                   <Link to={`/`} className="logo">
-                  <img src={this.state.icon} alt="logo" />
+                  <img src={logo} alt="logo" />
                   <span>react新闻平台</span>
                   </Link>  
                 </Col>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Icon, Tabs, Modal, Dropdown, message, Form, Input, Button } from 'antd';
+import logo from '../../images/news.png';
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
 class MobileHeader extends Component {
@@ -13,7 +14,7 @@ class MobileHeader extends Component {
             hasLogined: false,
             userNickName: "",
             userId: 0,
-            icon: "/images/news.png"
+            icon: "./images/news.png"
         };
     }
     componentWillMount() {
@@ -124,7 +125,7 @@ class MobileHeader extends Component {
             <a target="_blank" onClick={this.login.bind(this)}><Icon type="key" /></a>;
         return (
             <header>
-            <Link to={`/`}><img className="logoImg" src={this.state.icon}  alt=""/>
+            <Link to={`/`}><img className="logoImg" src={logo}  alt=""/>
             <span className="apptitle">react新闻平台</span></Link>
             
             {userShow}

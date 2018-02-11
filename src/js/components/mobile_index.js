@@ -3,6 +3,10 @@ import MobileHeader from "./mobile_header";
 import MobileFooter from "./mobile_footer";
 import MobileNewsList from "./mobile_list";
 import { Tabs, Carousel } from 'antd';
+import img1 from '../../images/1.png';
+import img2 from '../../images/2.png';
+import img3 from '../../images/3.png';
+import img4 from '../../images/4.png';
 const TabPane = Tabs.TabPane;
 class MobileIndex extends Component {
     render() {
@@ -11,10 +15,10 @@ class MobileIndex extends Component {
                 <MobileHeader></MobileHeader>
                 <Tabs>
                   <TabPane tab="头条" key="1"><Carousel  autoplay>
-                            <div><img src='/images/1.png'/></div>
-                            <div><img src='/images/2.png'/></div>
-                            <div><img src='/images/3.png'/></div>
-                            <div><img src='/images/4.png'/></div>
+                            <div><img src={img1} alt=''/></div>
+                            <div><img src={img2} alt=''/></div>
+                            <div><img src={img3} alt=''/></div>
+                            <div><img src={img4} alt=''/></div>
                           </Carousel>
 
                           <MobileNewsList count='10' type='top'></MobileNewsList></TabPane>
